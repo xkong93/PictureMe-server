@@ -30,6 +30,5 @@ public class TagDao {
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, null);
     }
-
   }
 }

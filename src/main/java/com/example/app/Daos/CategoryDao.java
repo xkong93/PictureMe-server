@@ -19,6 +19,7 @@ import javax.xml.stream.Location;
  */
 public class CategoryDao {
 
+  //CRUD
   public void createCategory(Category category) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -38,7 +39,7 @@ public class CategoryDao {
   }
 
 
-  //to do
+
   public Category findCategoryByName(String name) {
     Connection conn = null;
     PreparedStatement ps1 = null;
@@ -140,7 +141,7 @@ public class CategoryDao {
     category.setCreateDate(date);
     category.setName("home");
     CategoryDao categoryDao = new CategoryDao();
-//    categoryDao.createCategory(category);
+    categoryDao.createCategory(category);
 //    categoryDao.deleteCategory("home");
 //    categoryDao.updateCategory("newHome","home");
       Category c = categoryDao.findCategoryByName("newHome");

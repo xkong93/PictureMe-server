@@ -6,4 +6,6 @@ package com.example.app.Controllers;
  */
 public class CategoryController {
 
+
+  //api/catoery/1/
 }
