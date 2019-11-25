@@ -85,6 +85,8 @@ public class TableInit {
         + " primary key (id)"
         + ")";
 
+
+
     try {
       conn = jdbcUtils.getInstance().getConnection();
       ps = conn.prepareStatement(createTable_Tag);
