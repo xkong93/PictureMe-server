@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 /**
  * @author Xuan Kong
  * @Date 2019-11-14.
+ * this class is deprecated. Use TableInit2 instead
  */
 public class TableInit {
 
