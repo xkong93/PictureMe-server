@@ -18,8 +18,7 @@ public class DemoApplication {
 
   public static void main(String[] args) throws Exception {
    SpringApplication.run(DemoApplication.class, args);
-    TableInit2 tableInit2 = new TableInit2();
-    TriggerInit triggerInit = new TriggerInit();
+
   }
 
 }
