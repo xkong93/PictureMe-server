@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.stream.Location;
-
 /**
  * @author Xuan Kong
  * @Date 2019-11-17.
@@ -20,10 +18,28 @@ import javax.xml.stream.Location;
 public class CategoryDao {
 
   //CRUD
+//  public void createCategory(Category category) {
+//    Connection conn = null;
+//    PreparedStatement ps = null;
+//    String sql = "insert into category(create_date,name) values (?,?)";
+//    try {
+//      conn = JDBCUtils.getInstance().getConnection();
+//      ps = conn.prepareStatement(sql);
+//      ps.setDate(1, new java.sql.Date(category.getCreateDate().getTime()));
+//      ps.setString(2, category.getName());
+//      ps.executeUpdate();
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    } finally {
+//      JDBCUtils.getInstance().closeConnection(conn, ps, null);
+//    }
+//
+//  }
+
   public void createCategory(Category category) {
     Connection conn = null;
     PreparedStatement ps = null;
-    String sql = "insert into category(create_date,name) values (?,?)";
+    String sql = "call create_category(?,?)";
     try {
       conn = JDBCUtils.getInstance().getConnection();
       ps = conn.prepareStatement(sql);
@@ -37,8 +53,6 @@ public class CategoryDao {
     }
 
   }
-
-
 
   public Category findCategoryByName(String name) {
     Connection conn = null;
@@ -70,13 +84,12 @@ public class CategoryDao {
       List<Photo> photoList = new ArrayList<>();
 
 
-      while(rs2.next()) {
-          Photo temp = new Photo();
-          temp.setIso(rs2.getInt("iso"));
-          photoList.add(temp);
+      while (rs2.next()) {
+        Photo temp = new Photo();
+        temp.setIso(rs2.getInt("iso"));
+        photoList.add(temp);
       }
       c.setPhotoList(photoList);
-
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -115,7 +128,6 @@ public class CategoryDao {
 
   }
 
-
   public void deleteCategory(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -144,12 +156,12 @@ public class CategoryDao {
     categoryDao.createCategory(category);
 //    categoryDao.deleteCategory("home");
 //    categoryDao.updateCategory("newHome","home");
-      Category c = categoryDao.findCategoryByName("newHome");
-      List<Photo> photos = c.getPhotoList();
-      for(Photo p : photos) {
-        System.out.println(p.getIso());
-      }
-    System.out.println(c.getName());
+//    Category c = categoryDao.findCategoryByName("newHome");
+//    List<Photo> photos = c.getPhotoList();
+//    for (Photo p : photos) {
+//      System.out.println(p.getIso());
+//    }
+//    System.out.println(c.getName());
 //    System.out.println(c.getName());
 //    System.out.println(c.getCreateDate());
 //    System.out.println(category.getCreateDate());
