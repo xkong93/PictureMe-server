@@ -7,11 +7,21 @@ import java.util.Date;
  * @Date 2019-11-17.
  */
 public class Tag {
+
+  private Integer tid;
   private Date createDate;
   private String name;
 
   public Tag() {
 
+  }
+
+  public Integer getTid() {
+    return tid;
+  }
+
+  public void setTid(Integer tid) {
+    this.tid = tid;
   }
 
   public Date getCreateDate() {

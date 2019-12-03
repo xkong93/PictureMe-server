@@ -8,11 +8,14 @@ import java.util.List;
  * @Date 2019-11-17.
  */
 public class Photo {
+
+  private Integer pid;
   private String url;
+  private String name;
   private Date createDate;
   private Integer height;
   private Integer width;
-  private String focalLength;
+  private Integer focalLength;
   private String fNumber;
   private Integer iso;
   private String exposureTime;
@@ -24,7 +27,23 @@ public class Photo {
   private List<Category> categoryList;
 
   public Photo() {
+      this.createDate = new Date();
+  }
 
+  public Integer getPid() {
+    return pid;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setPid(Integer pid) {
+    this.pid = pid;
   }
 
   public String getUrl() {
@@ -59,11 +78,11 @@ public class Photo {
     this.width = width;
   }
 
-  public String getFocalLength() {
+  public Integer getFocalLength() {
     return focalLength;
   }
 
-  public void setFocalLength(String focalLength) {
+  public void setFocalLength(Integer focalLength) {
     this.focalLength = focalLength;
   }
 

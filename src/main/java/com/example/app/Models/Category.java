@@ -1,22 +1,39 @@
 package com.example.app.Models;
 
+import org.apache.tomcat.jni.Local;
+
 import java.util.Date;
 import java.util.List;
+import java.time.LocalDateTime;
+
 
 /**
  * @author Xuan Kong
  * @Date 2019-11-17.
  */
 public class Category {
+
+  private int cid;
   private Date createDate;
   private String name;
   private List<Photo> photoList;
 
   public Category() {
+//      LocalDateTime localDateTime = LocalDateTime.now();
+//      Date date = new Date();
+//      date.set
+  }
 
+  public int getCid() {
+    return cid;
+  }
+
+  public void setCid(int cid) {
+    this.cid = cid;
   }
 
   public Date getCreateDate() {
+
     return createDate;
   }
 

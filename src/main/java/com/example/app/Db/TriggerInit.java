@@ -117,7 +117,7 @@ public class TriggerInit {
     String createTrigger = "create trigger checkFNumberLength" +
             " before insert on photo for each row" +
             " begin" +
-            " if not NEW.focal_length regexp 'f/[0-9].[0-9]' then" +
+            " if NEW.f_number NOT REGEXP 'f/[0-9].[0-9]' then" +
             " SIGNAL sqlstate '45000'" +
             " set message_text = '[table:photo] - f_number is invalid';" +
             " end if;" +

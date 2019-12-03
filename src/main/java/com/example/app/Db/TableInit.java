@@ -7,12 +7,12 @@ import java.sql.PreparedStatement;
  * @author Xuan Kong
  * @Date 2019-11-14.
  */
-public class TableInit2 {
+public class TableInit {
 
   JDBCUtils jdbcUtils;
   Connection conn;
 
-  public TableInit2() {
+  public TableInit() {
     dropTables();
     initTagTable();
     initCategoryTable();

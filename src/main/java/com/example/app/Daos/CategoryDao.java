@@ -7,8 +7,8 @@ import com.example.app.Models.Photo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,62 +45,85 @@ public class CategoryDao {
       ps = conn.prepareStatement(sql);
       ps.setDate(1, new java.sql.Date(category.getCreateDate().getTime()));
       ps.setString(2, category.getName());
-      ps.executeUpdate();
-    } catch (Exception e) {
-      e.printStackTrace();
+      ps.execute();
+    } catch (SQLException se) { // key point
+      //Handle errors for JDBC
+      se.printStackTrace();
+      System.out.println(se.getMessage());
+
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, null);
     }
 
   }
 
-  public Category findCategoryByName(String name) {
+  public List<Photo> findAllPhotosFromCategoryByName(String name) {
     Connection conn = null;
-    PreparedStatement ps1 = null;
-    PreparedStatement ps2 = null;
+    PreparedStatement ps = null;
     ResultSet rs = null;
-    ResultSet rs2 = null;
-    Category c = null;
-
-    String sql = "select * from category where name=?";
-
+    List<Photo> photoList = null;
     String sql2 = "select * from photo p inner join photo_category ps on ps.pid = p.id " +
             "inner join category c on c.id = ps.cid where c.name = ?";
     try {
       conn = JDBCUtils.getInstance().getConnection();
-      ps1 = conn.prepareStatement(sql);
-      ps1.setString(1, name);
-      rs = ps1.executeQuery();
-      if (rs.next()) {
-        c = new Category();
-        c.setName(rs.getString("name"));
-        c.setCreateDate(rs.getDate("create_date"));
-      }
+      ps = conn.prepareStatement(sql2);
+      ps.setString(1,name);
+      rs = ps.executeQuery();
+      photoList = new ArrayList<>();
 
-      conn = JDBCUtils.getInstance().getConnection();
-      ps2 = conn.prepareStatement(sql2);
-      ps2.setString(1, name);
-      rs2 = ps2.executeQuery();
-      List<Photo> photoList = new ArrayList<>();
-
-
-      while (rs2.next()) {
+      while (rs.next()) {
         Photo temp = new Photo();
-        temp.setIso(rs2.getInt("iso"));
+        temp.setPid(rs.getInt("id"));
+        temp.setUrl(rs.getString("url"));
+        temp.setName(rs.getString("name"));
+        temp.setCreateDate(rs.getDate("create_date"));
+        temp.setHeight(rs.getInt("height"));
+        temp.setHeight(rs.getInt("width"));
+        temp.setFocalLength(rs.getInt("focal_length"));
+        temp.setfNumber(rs.getString("f_number"));
         photoList.add(temp);
       }
-      c.setPhotoList(photoList);
-
+    } catch (SQLException se) { // key point
+      //Handle errors for JDBC
+      se.printStackTrace();
+      System.out.println(se.getErrorCode());
     } catch (Exception e) {
+      //Handle errors for Class.forName
       e.printStackTrace();
     } finally {
-      JDBCUtils.getInstance().closeConnection(conn, ps1, rs);
-      //how to deal with two quest for one connection??
-      JDBCUtils.getInstance().closeConnection(conn, ps2, rs2);
+      //how to deal with two query for one connection??
+      JDBCUtils.getInstance().closeConnection(conn, ps, rs);
 
 
     }
-    return c;
+    return photoList;
+
+  }
+
+  public Category findCategoryByName(String name) {
+    String newName = name.toLowerCase();
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    String sql = "call get_category_by_name(?)";
+    Category category = new Category();
+    try {
+      conn = JDBCUtils.getInstance().getConnection();
+      ps = conn.prepareStatement(sql);
+      ps.setString(1, newName);
+      rs = ps.executeQuery();
+      while (rs.next()) {
+        category.setCid(rs.getInt(1));
+        category.setCreateDate(rs.getDate(2));
+        category.setName(rs.getString(3));
+
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      JDBCUtils.getInstance().closeConnection(conn, ps, rs);
+    }
+    return category;
 
   }
 
@@ -145,25 +168,35 @@ public class CategoryDao {
   }
 
 
+
+
+
   //test CRUD for CategoryDao
   public static void main(String[] args) {
-    Category category = new Category();
-    Date date = new Date();
-    date.getTime();
-    category.setCreateDate(date);
-    category.setName("home");
+//    Category category = new Category();
+//    Date date = new Date();
+//    date.getTime();
+//    category.setCreateDate(date);
+//    category.setName("fasion");
     CategoryDao categoryDao = new CategoryDao();
-    categoryDao.createCategory(category);
+//    categoryDao.createCategory(category);
 //    categoryDao.deleteCategory("home");
 //    categoryDao.updateCategory("newHome","home");
-//    Category c = categoryDao.findCategoryByName("newHome");
-//    List<Photo> photos = c.getPhotoList();
-//    for (Photo p : photos) {
+//    List<Photo> photoList = categoryDao.findAllPhotosFromCategoryByName("newHome");
+//    for (Photo p : photoList) {
 //      System.out.println(p.getIso());
 //    }
 //    System.out.println(c.getName());
-//    System.out.println(c.getName());
 //    System.out.println(c.getCreateDate());
 //    System.out.println(category.getCreateDate());
+      List<Photo> photoList;
+      photoList = categoryDao.findAllPhotosFromCategoryByName("travel");
+      for (Photo p : photoList) {
+        System.out.println(p.getName() + p.getCreateDate());
+      }
+//
+//    Category c = categoryDao.findCategoryByName("dsd");
+//    System.out.println(c.getName() + c.getCreateDate());
+
   }
 }

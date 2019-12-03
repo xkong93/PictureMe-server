@@ -45,7 +45,7 @@ public class JDBCUtils {
      * @return
      * @throws Exception
      */
-    public Connection getConnection() throws Exception {
+    public Connection getConnection() throws SQLException {
 //        System.out.println(jdbcDriver);
 //        System.out.println(url);
 //        Class.forName(jdbcDriver) ??
