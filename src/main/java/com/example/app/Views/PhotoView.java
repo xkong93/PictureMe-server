@@ -11,8 +11,11 @@ import java.util.List;
  */
 public class PhotoView {
 
-  PhotoDao photoDao = new PhotoDao();
+  PhotoDao photoDao;
 
+  public PhotoView() {
+    photoDao = new PhotoDao();
+  }
 
   public static void displayPhotoInfo(Photo photo) {
     System.out.println("url: " + photo.getUrl() + ", name: "
@@ -21,12 +24,24 @@ public class PhotoView {
       + photo.getFocalLength() + "mm" + ", f number: " + photo.getfNumber() + ", ISO: " + photo.getIso());
   }
 
-  public void displayAllPhoto(List<Photo> photoList) {
+  public void displayAllPhoto() {
+    List<Photo> photoList = photoDao.findAllPhotos();
+    if (photoList.size() == 0) {
+      System.out.println("No photos");
+    }
     for (Photo p : photoList) {
       displayPhotoInfo(p);
     }
   }
 
+  public void displayAllPhoto(List<Photo> photoList) {
+    if (photoList.size() == 0) {
+      System.out.println("No photos");
+    }
+    for (Photo p : photoList) {
+      displayPhotoInfo(p);
+    }
+  }
 
   public static void main(String[] args) {
     PhotoDao photoDao = new PhotoDao();

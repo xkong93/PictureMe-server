@@ -24,6 +24,10 @@ public class Category {
 //      date.set
   }
 
+  public Category(String name) {
+    this.name = name;
+  }
+
   public int getCid() {
     return cid;
   }

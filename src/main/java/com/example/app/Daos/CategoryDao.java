@@ -216,7 +216,7 @@ public class CategoryDao {
 //    System.out.println(c.getCreateDate());
 //    System.out.println(category.getCreateDate());
     List<Photo> photoList;
-    photoList = categoryDao.findAllPhotosFromCategoryByName("travel");
+    photoList = categoryDao.findAllPhotosFromCategoryByName("4444");
     for (Photo p : photoList) {
       System.out.println(p.getName() + p.getCreateDate());
     }

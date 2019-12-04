@@ -1,9 +1,5 @@
 package com.example.app.Views;
 
-import com.example.app.Daos.CategoryDao;
-import com.example.app.Daos.PhotoDao;
-import com.example.app.Daos.TagDao;
-
 import java.util.Scanner;
 
 /**
@@ -12,6 +8,14 @@ import java.util.Scanner;
  */
 public class Main {
 
+  public static String mainPageOptions = "Please choose from the following options:\n" +
+    "1. Display all photos\n" +
+    "2. Go to category mode\n" +
+    "3. Go to tag mode\n" +
+    "4. Delete existing photos\n" +
+    "5. Create a photo\n" +
+    "6. Update a photo info\n" +
+    "7. Go back to the main page\n";
 
   public static void main(String[] args) {
 
@@ -19,43 +23,47 @@ public class Main {
     CategoryView categoryView = new CategoryView();
     PhotoView photoView = new PhotoView();
     TagView tagView = new TagView();
-    PhotoDao photoDao = new PhotoDao();
-    CategoryDao categoryDao = new CategoryDao();
-    TagDao tagDao = new TagDao();
 
     Scanner in = new Scanner(System.in);
     System.out.println("Welcome to the PictureMe photo management system!");
-    System.out.println("Please choose from the following options:\n" +
-      "1. Display all photos\n" +
-      "2. Display all categories\n" +
-      "3. Display all tags\n" +
-      "4. Delete existing photos\n" +
-      "5. Delete existing categories\n" +
-      "6. Delete existing tags\n" +
-
-      "7. quit");
-
+    System.out.println(mainPageOptions);
     while (in.hasNext()) {
       String input = in.next();
       switch (input) {
         case "1":
-          photoView.displayAllPhoto(photoDao.findAllPhotos());
+          photoView.displayAllPhoto();
+          System.out.println(mainPageOptions);
           break;
         case "2":
-          categoryDao.findAllCategories();
+          categoryView.goToCategoryMode();
           break;
         case "3":
+
           break;
         case "4":
+
+          System.out.println(mainPageOptions);
           break;
         case "5":
+
+          System.out.println(mainPageOptions);
+          break;
+        case "6":
+          System.out.println(mainPageOptions);
           break;
         case "7":
+          System.out.println(mainPageOptions);
+
           return;
         default:
           System.out.println("invalid input, please try it again!");
       }
     }
+  }
+
+
+  public static void mainOptions() {
+
   }
 
 }
