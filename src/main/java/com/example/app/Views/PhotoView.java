@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class PhotoView {
 
+  PhotoDao photoDao = new PhotoDao();
+
+
   public static void displayPhotoInfo(Photo photo) {
     System.out.println("url: " + photo.getUrl() + ", name: "
       + photo.getName() + ", crate_date:" + photo.getCreateDate() + ", width: "

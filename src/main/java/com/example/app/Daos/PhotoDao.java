@@ -93,11 +93,13 @@ public class PhotoDao {
         Photo temp = new Photo();
         temp.setPid(rs.getInt("id"));
         temp.setName(rs.getString("name"));
+        temp.setUrl();
         temp.setCreateDate(rs.getDate("create_date").toString());
         temp.setHeight(rs.getInt("height"));
-        temp.setHeight(rs.getInt("width"));
+        temp.setWidth(rs.getInt("width"));
         temp.setFocalLength(rs.getInt("focal_length"));
         temp.setfNumber(rs.getString("f_number"));
+        temp.setIso(rs.getInt("iso"));
         photoList.add(temp);
       }
 

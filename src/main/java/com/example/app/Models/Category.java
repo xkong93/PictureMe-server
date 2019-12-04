@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Category {
 
   private int cid;
-  private Date createDate;
+  private String createDate;
   private String name;
   private List<Photo> photoList;
 
@@ -32,12 +32,12 @@ public class Category {
     this.cid = cid;
   }
 
-  public Date getCreateDate() {
+  public String getCreateDate() {
 
     return createDate;
   }
 
-  public void setCreateDate(Date createDate) {
+  public void setCreateDate(String createDate) {
     this.createDate = createDate;
   }
 

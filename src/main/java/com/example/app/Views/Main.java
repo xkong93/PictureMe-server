@@ -2,6 +2,7 @@ package com.example.app.Views;
 
 import com.example.app.Daos.CategoryDao;
 import com.example.app.Daos.PhotoDao;
+import com.example.app.Daos.TagDao;
 
 import java.util.Scanner;
 
@@ -20,26 +21,28 @@ public class Main {
     TagView tagView = new TagView();
     PhotoDao photoDao = new PhotoDao();
     CategoryDao categoryDao = new CategoryDao();
-
+    TagDao tagDao = new TagDao();
 
     Scanner in = new Scanner(System.in);
     System.out.println("Welcome to the PictureMe photo management system!");
     System.out.println("Please choose from the following options:\n" +
-      "1. Display all photos\n" + //done
-      "2. Display all categories\n" + //done
-      "3. Display all tags\n" + //done
-      "4. Delete existing photos\n" + //done
+      "1. Display all photos\n" +
+      "2. Display all categories\n" +
+      "3. Display all tags\n" +
+      "4. Delete existing photos\n" +
       "5. Delete existing categories\n" +
       "6. Delete existing tags\n" +
+
       "7. quit");
 
     while (in.hasNext()) {
       String input = in.next();
       switch (input) {
         case "1":
-          photoDao.findAllPhotos();
+          photoView.displayAllPhoto(photoDao.findAllPhotos());
           break;
         case "2":
+          categoryDao.findAllCategories();
           break;
         case "3":
           break;
@@ -47,7 +50,7 @@ public class Main {
           break;
         case "5":
           break;
-        case "6":
+        case "7":
           return;
         default:
           System.out.println("invalid input, please try it again!");

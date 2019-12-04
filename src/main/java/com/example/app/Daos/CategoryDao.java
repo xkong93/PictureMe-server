@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class CategoryDao {
     try {
       conn = JDBCUtils.getInstance().getConnection();
       ps = conn.prepareStatement(sql);
-      ps.setDate(1, new java.sql.Date(category.getCreateDate().getTime()));
+      ps.setDate(1, new java.sql.Date(new Date().getTime()));
       ps.setString(2, category.getName());
       ps.execute();
     } catch (SQLException se) { // key point
@@ -57,6 +58,33 @@ public class CategoryDao {
 
   }
 
+  public List<Category> findAllCategories() {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    String sql = "select * from category";
+    List<Category> categoryList = new ArrayList<>();
+    try {
+      conn = JDBCUtils.getInstance().getConnection();
+      ps = conn.prepareStatement(sql);
+      rs = ps.executeQuery();
+      categoryList = new ArrayList<>();
+      while (rs.next()) {
+        Category category = new Category();
+        category.setCid(rs.getInt("id"));
+        category.setCreateDate(rs.getDate("create_date").toString());
+        category.setName(rs.getString("name"));
+        categoryList.add(category);
+      }
+
+    } catch (SQLException se) {
+      se.getMessage();
+    } finally {
+      JDBCUtils.getInstance().closeConnection(conn, ps, rs);
+    }
+    return categoryList;
+  }
+
   public List<Photo> findAllPhotosFromCategoryByName(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -67,7 +95,7 @@ public class CategoryDao {
     try {
       conn = JDBCUtils.getInstance().getConnection();
       ps = conn.prepareStatement(sql2);
-      ps.setString(1,name);
+      ps.setString(1, name);
       rs = ps.executeQuery();
       photoList = new ArrayList<>();
 
@@ -113,7 +141,7 @@ public class CategoryDao {
       rs = ps.executeQuery();
       while (rs.next()) {
         category.setCid(rs.getInt(1));
-        category.setCreateDate(rs.getDate(2));
+        category.setCreateDate(rs.getDate(2).toString());
         category.setName(rs.getString(3));
 
       }
@@ -169,7 +197,6 @@ public class CategoryDao {
   }
 
 
-
   //test CRUD for CategoryDao
   public static void main(String[] args) {
 //    Category category = new Category();
@@ -188,11 +215,11 @@ public class CategoryDao {
 //    System.out.println(c.getName());
 //    System.out.println(c.getCreateDate());
 //    System.out.println(category.getCreateDate());
-      List<Photo> photoList;
-      photoList = categoryDao.findAllPhotosFromCategoryByName("travel");
-      for (Photo p : photoList) {
-        System.out.println(p.getName() + p.getCreateDate());
-      }
+    List<Photo> photoList;
+    photoList = categoryDao.findAllPhotosFromCategoryByName("travel");
+    for (Photo p : photoList) {
+      System.out.println(p.getName() + p.getCreateDate());
+    }
 //
 //    Category c = categoryDao.findCategoryByName("dsd");
 //    System.out.println(c.getName() + c.getCreateDate());
