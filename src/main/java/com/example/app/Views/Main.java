@@ -38,10 +38,8 @@ public class Main {
           categoryView.goToCategoryMode();
           break;
         case "3":
-
           break;
         case "4":
-
           System.out.println(mainPageOptions);
           break;
         case "5":

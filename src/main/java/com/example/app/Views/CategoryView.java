@@ -148,16 +148,50 @@ public class CategoryView {
       if (cname.toLowerCase().equals("q")) {
         return;
       }
-      isSuccess = categoryDao.updateCategory(newName,cname);
+      isSuccess = categoryDao.updateCategory(newName, cname);
       if (isSuccess) {
-      System.out.println("Category's name: " + cname + " updated to " + newName);
+        System.out.println("Category's name: " + cname + " updated to " + newName);
       }
     }
   }
 
   public void addPhotoToCategory() {
+    Scanner in = new Scanner(System.in);
+    System.out.println("In Category Mode!\nSelect a category. (Enter q to go back)");
+    String cname = in.next();
+    if (cname.toLowerCase().equals("q")) {
+      return;
+    }
+    System.out.println("In Category Mode!\nSelect a photo. (Enter q to go back)");
+    String pName = in.next();
+    if (cname.toLowerCase().equals("q")) {
+      return;
+    }
 
+    boolean isSuccess = false;
+    isSuccess = categoryDao.addPhotoToCategory(pName, cname);
+    if (isSuccess) {
+      System.out.println("Image: " + pName + " added to category: " + cname);
+    }
+    while (!isSuccess) {
+      System.out.println("In Category Mode!\nSelect a category. (Enter q to go back)");
+      cname = in.next();
+      if (cname.toLowerCase().equals("q")) {
+        return;
+      }
+
+      System.out.println("In Category Mode!\nSelect a photo. (Enter q to go back)");
+      pName = in.next();
+      if (cname.toLowerCase().equals("q")) {
+        return;
+      }
+      isSuccess = categoryDao.addPhotoToCategory(pName, cname);
+      if (isSuccess) {
+        System.out.println("Image: " + pName + " added to category: " + cname);
+      }
+    }
   }
+
   public void goToCategoryMode() {
     System.out.println("In Category Mode!");
     System.out.println(categoryPageOptions);
@@ -186,6 +220,8 @@ public class CategoryView {
           System.out.println(categoryPageOptions);
           break;
         case "6":
+          addPhotoToCategory();
+          System.out.println(categoryPageOptions);
           break;
         case "7":
           return;
