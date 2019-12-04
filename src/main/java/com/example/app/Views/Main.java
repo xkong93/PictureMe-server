@@ -15,7 +15,7 @@ public class Main {
     "4. Delete existing photos\n" +
     "5. Create a photo\n" +
     "6. Update a photo info\n" +
-    "7. Go back to the main page\n";
+    "7. Quit";
 
   public static void main(String[] args) {
 

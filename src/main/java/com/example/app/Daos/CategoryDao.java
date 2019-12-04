@@ -98,8 +98,11 @@ public class CategoryDao {
       ps.setString(1, name);
       rs = ps.executeQuery();
       photoList = new ArrayList<>();
+//      System.out.println(rs.isBeforeFirst());
 
       while (rs.next()) {
+
+
         Photo temp = new Photo();
         temp.setPid(rs.getInt("id"));
         temp.setName(rs.getString("name"));
@@ -145,8 +148,8 @@ public class CategoryDao {
         category.setName(rs.getString(3));
 
       }
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (SQLException se) {
+      System.out.println(se.getMessage());
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, rs);
     }
@@ -166,7 +169,11 @@ public class CategoryDao {
       ps = conn.prepareStatement(sb.toString());
       ps.setString(1, newName);
       ps.setString(2, oldName);
-      ps.executeUpdate();
+      Integer res = ps.executeUpdate();
+      if (res == 0) {
+        System.out.println("Category: " + oldName + " not exists");
+        return false;
+      }
     } catch (SQLException se) {
       System.out.println(se.getMessage());
       return false;
@@ -186,7 +193,12 @@ public class CategoryDao {
       conn = JDBCUtils.getInstance().getConnection();
       ps = conn.prepareStatement(sql);
       ps.setString(1, name);
-      ps.executeUpdate();
+      Integer res = ps.executeUpdate();
+      if (res == 0) {
+        System.out.println("Category: " + name + " not exists");
+        return false;
+      }
+
     } catch (SQLException se) {
       System.out.println(se.getMessage());
       return false;
@@ -196,6 +208,49 @@ public class CategoryDao {
     return true;
   }
 
+  public boolean addPhotoToCategory(String pName, String cName) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs1 = null;
+    ResultSet rs2 = null;
+    String sql1 = "select id from photo where name=?";
+    String sql2 = "select id from category where name=?";
+    String sql3 = "insert into photo_category (pid,cid) values (?,?)";
+    try {
+
+        //get photo id
+        conn = JDBCUtils.getInstance().getConnection();
+        ps = conn.prepareStatement(sql1);
+        ps.setString(1,pName);
+        rs1 = ps.executeQuery();
+        rs1.next();//move cursor
+        Integer pid = rs1.getInt(1);
+
+
+        //get Category id
+        ps = conn.prepareStatement(sql2);
+        ps.setString(1,cName);
+        rs2 = ps.executeQuery();
+        rs2.next();
+        Integer cid = rs2.getInt("id");
+
+        //insert pid cid into photo_cate table
+        ps = conn.prepareStatement(sql3);
+        ps.setInt(1,pid);
+        ps.setInt(2,cid);
+        ps.executeUpdate();
+
+    }catch (SQLException se) {
+      System.out.println(se.getMessage());
+      return false;
+    } finally {
+      JDBCUtils.getInstance().closeConnection(conn, ps, rs1);
+      JDBCUtils.getInstance().closeConnection(conn, ps, rs2);
+
+    }
+
+    return true;
+  }
 
   //test CRUD for CategoryDao
   public static void main(String[] args) {
@@ -215,11 +270,13 @@ public class CategoryDao {
 //    System.out.println(c.getName());
 //    System.out.println(c.getCreateDate());
 //    System.out.println(category.getCreateDate());
-    List<Photo> photoList;
-    photoList = categoryDao.findAllPhotosFromCategoryByName("4444");
-    for (Photo p : photoList) {
-      System.out.println(p.getName() + p.getCreateDate());
-    }
+//    List<Photo> photoList;
+//    photoList = categoryDao.findAllPhotosFromCategoryByName("4444");
+//    for (Photo p : photoList) {
+//      System.out.println(p.getName() + p.getCreateDate());
+//    }
+    categoryDao.addPhotoToCategory("IMG_002.jpg","study");
+//    categoryDao.updateCategory("travel", "school");
 //
 //    Category c = categoryDao.findCategoryByName("dsd");
 //    System.out.println(c.getName() + c.getCreateDate());

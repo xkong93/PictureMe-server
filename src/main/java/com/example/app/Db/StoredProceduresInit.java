@@ -7,12 +7,12 @@ import java.sql.PreparedStatement;
  * @author Xuan Kong
  * @Date 2019-11-26.
  */
-public class StoredProcedures {
+public class StoredProceduresInit {
 
   JDBCUtils jdbcUtils;
   Connection conn;
 
-  public StoredProcedures() {
+  public StoredProceduresInit() {
     dropAllStoredProcedures();
     initCreateCategory();
     initGetCategoryByName();

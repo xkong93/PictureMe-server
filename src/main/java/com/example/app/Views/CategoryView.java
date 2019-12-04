@@ -17,13 +17,13 @@ public class CategoryView {
   PhotoView photoView;
 
   private String categoryPageOptions = "Please choose from the following options:\n" +
-    "1. Display all categories\n" +
-    "2. Display photos from a category\n" +
-    "3. Create a category\n" +
+    "1. Display all categories\n" + //done
+    "2. Display photos from a category\n" + // done
+    "3. Create a category\n" + //done
     "4. Delete a category\n" +
     "5. Update a category's name\n" +
     "6. Add a photo to a category\n" +
-    "7. quit\n";
+    "7. Go back to main page";
 
 
   public CategoryView() {
@@ -47,7 +47,7 @@ public class CategoryView {
 
   public void displayAllPhotosFromCategory() {
     Scanner in = new Scanner(System.in);
-    System.out.println("Enter the name of the category. (Enter q to go back)");
+    System.out.println("In Category Mode!\nEnter the name of the category. (Enter q to go back)");
     String cname = in.next();
     if (cname.toLowerCase().equals("q")) {
       return;
@@ -55,7 +55,7 @@ public class CategoryView {
     List<Photo> photoList = categoryDao.findAllPhotosFromCategoryByName(cname);
     photoView.displayAllPhoto(photoList);
     while (true) {
-      System.out.println("Enter the name of the category. (Enter q to go back)");
+      System.out.println("In Category Mode!\nEnter the name of the category. (Enter q to go back)");
       cname = in.next();
       if (cname.toLowerCase().equals("q")) {
         return;
@@ -63,13 +63,12 @@ public class CategoryView {
       photoList = categoryDao.findAllPhotosFromCategoryByName(cname);
       photoView.displayAllPhoto(photoList);
     }
-
-
   }
 
-  public void createACategoryView() {
+
+  public void createCategoryView() {
     Scanner in = new Scanner(System.in);
-    System.out.println("Enter the name of the category. (Enter q to go back)");
+    System.out.println("In Category Mode!\nEnter the name of the category you want to create. (Enter q to go back)");
     String cname = in.next();
     if (cname.toLowerCase().equals("q")) {
       return;
@@ -77,11 +76,88 @@ public class CategoryView {
     boolean isSuccess = false;
     Category category = new Category(cname);
     isSuccess = categoryDao.createCategory(category);
+    if (isSuccess) {
+      System.out.println("New category:" + cname + "created!");
+    }
     while (!isSuccess) {
-
+      System.out.println("In Category Mode!\nEnter the name of the category you want to create. (Enter q to go back)");
+      cname = in.next();
+      if (cname.toLowerCase().equals("q")) {
+        return;
+      }
+      category = new Category(cname);
+      isSuccess = categoryDao.createCategory(category);
+      if (isSuccess) {
+        System.out.println("New category:" + cname + " created!");
+      }
     }
   }
 
+  public void deleteCategoryView() {
+    Scanner in = new Scanner(System.in);
+    System.out.println("In Category Mode!\nEnter the name of the category you want to delete. (Enter q to go back)");
+    String cname = in.next();
+    if (cname.toLowerCase().equals("q")) {
+      return;
+    }
+    boolean isSuccess = false;
+    isSuccess = categoryDao.deleteCategory(cname);
+    if (isSuccess) {
+      System.out.println("Category: " + cname + " deleted!");
+    }
+    while (!isSuccess) {
+      System.out.println("In Category Mode!\nEnter the name of the category you want to delete. (Enter q to go back)");
+      cname = in.next();
+      if (cname.toLowerCase().equals("q")) {
+        return;
+      }
+      isSuccess = categoryDao.deleteCategory(cname);
+      if (isSuccess) {
+        System.out.println("Category: " + cname + " deleted!");
+      }
+    }
+  }
+
+  public void updateCategoryView() {
+    Scanner in = new Scanner(System.in);
+    System.out.println("In Category Mode!\nEnter the name of the category you want to update. (Enter q to go back)");
+    String cname = in.next();
+    if (cname.toLowerCase().equals("q")) {
+      return;
+    }
+    System.out.println("In Category Mode!\nEnter the new name of the category. (Enter q to go back)");
+    String newName = in.next();
+    if (cname.toLowerCase().equals("q")) {
+      return;
+    }
+
+    boolean isSuccess = false;
+    isSuccess = categoryDao.updateCategory(newName, cname);
+    if (isSuccess) {
+      System.out.println("Category's name: " + cname + " updated to " + newName);
+    }
+    while (!isSuccess) {
+      System.out.println("In Category Mode!\nEnter the name of the category you want to update. (Enter q to go back)");
+      cname = in.next();
+      if (cname.toLowerCase().equals("q")) {
+        return;
+      }
+
+      System.out.println("In Category Mode!\nEnter the new name of the category. (Enter q to go back)");
+      newName = in.next();
+      if (cname.toLowerCase().equals("q")) {
+        return;
+      }
+      isSuccess = categoryDao.updateCategory(newName,cname);
+      if (isSuccess) {
+      System.out.println("Category's name: " + cname + " updated to " + newName);
+      }
+    }
+  }
+
+  public void addPhotoToCategory() {
+
+  }
   public void goToCategoryMode() {
     System.out.println("In Category Mode!");
     System.out.println(categoryPageOptions);
@@ -98,10 +174,16 @@ public class CategoryView {
           System.out.println(categoryPageOptions);
           break;
         case "3":
+          createCategoryView();
+          System.out.println(categoryPageOptions);
           break;
         case "4":
+          deleteCategoryView();
+          System.out.println(categoryPageOptions);
           break;
         case "5":
+          updateCategoryView();
+          System.out.println(categoryPageOptions);
           break;
         case "6":
           break;
