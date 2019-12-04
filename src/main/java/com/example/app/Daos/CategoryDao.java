@@ -36,7 +36,7 @@ public class CategoryDao {
 //
 //  }
 
-  public void createCategory(Category category) {
+  public boolean createCategory(Category category) {
     Connection conn = null;
     PreparedStatement ps = null;
     String sql = "call create_category(?,?)";
@@ -48,12 +48,12 @@ public class CategoryDao {
       ps.execute();
     } catch (SQLException se) { // key point
       //Handle errors for JDBC
-      se.printStackTrace();
       System.out.println(se.getMessage());
-
+      return false;
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, null);
     }
+    return true;
 
   }
 
@@ -74,9 +74,8 @@ public class CategoryDao {
       while (rs.next()) {
         Photo temp = new Photo();
         temp.setPid(rs.getInt("id"));
-        temp.setUrl(rs.getString("url"));
         temp.setName(rs.getString("name"));
-        temp.setCreateDate(rs.getDate("create_date"));
+        temp.setCreateDate(rs.getDate("create_date").toString());
         temp.setHeight(rs.getInt("height"));
         temp.setHeight(rs.getInt("width"));
         temp.setFocalLength(rs.getInt("focal_length"));
@@ -127,12 +126,9 @@ public class CategoryDao {
 
   }
 
-  public void updateCategory(String newName, String oldName) {//same name
+  public boolean updateCategory(String newName, String oldName) {//same name
     Connection conn = null;
     PreparedStatement ps = null;
-    if (newName.equals(oldName)) {// if two names are identical, return.
-      return;
-    }
     String sql = "update category set ";
     StringBuilder sb = new StringBuilder(sql);
     sb.append("name=?");
@@ -143,15 +139,18 @@ public class CategoryDao {
       ps.setString(1, newName);
       ps.setString(2, oldName);
       ps.executeUpdate();
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (SQLException se) {
+      System.out.println(se.getMessage());
+      return false;
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, null);
     }
 
+    return true;
+
   }
 
-  public void deleteCategory(String name) {
+  public boolean deleteCategory(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
     String sql = "delete from category where name=?";
@@ -160,14 +159,14 @@ public class CategoryDao {
       ps = conn.prepareStatement(sql);
       ps.setString(1, name);
       ps.executeUpdate();
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (SQLException se) {
+      System.out.println(se.getMessage());
+      return false;
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, null);
     }
+    return true;
   }
-
-
 
 
 

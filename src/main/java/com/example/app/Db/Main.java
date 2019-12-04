@@ -9,5 +9,7 @@ public class Main {
     TableInit tableInit = new TableInit();
     TriggerInit triggerInit = new TriggerInit();
     StoredProcedures storedProcedures = new StoredProcedures();
+//    TestDataInit testDataInit = new TestDataInit();
+//    testDataInit.insertPhotoTestData();
   }
 }

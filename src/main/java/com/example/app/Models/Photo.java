@@ -10,9 +10,9 @@ import java.util.List;
 public class Photo {
 
   private Integer pid;
-  private String url;
+  private String url = "https://dbs5200.s3-us-west-1.amazonaws.com/";
   private String name;
-  private Date createDate;
+  private String createDate;
   private Integer height;
   private Integer width;
   private Integer focalLength;
@@ -26,8 +26,19 @@ public class Photo {
   private String model;
   private List<Category> categoryList;
 
+  public Photo(String name, String createDate, Integer height, Integer width, Integer focalLength, String fNumber, Integer iso) {
+    this.url = this.url + name;
+    this.name = name;
+    this.createDate = createDate;
+    this.height = height;
+    this.width = width;
+    this.focalLength = focalLength;
+    this.fNumber = fNumber;
+    this.iso = iso;
+  }
+
   public Photo() {
-      this.createDate = new Date();
+//      this.createDate = new Date();
   }
 
   public Integer getPid() {
@@ -50,15 +61,15 @@ public class Photo {
     return url;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setUrl() {
+    this.url = this.url + this.name;
   }
 
-  public Date getCreateDate() {
+  public String getCreateDate() {
     return createDate;
   }
 
-  public void setCreateDate(Date createDate) {
+  public void setCreateDate(String createDate) {
     this.createDate = createDate;
   }
 
