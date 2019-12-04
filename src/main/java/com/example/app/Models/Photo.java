@@ -1,6 +1,5 @@
 package com.example.app.Models;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +29,16 @@ public class Photo {
     this.url = this.url + name;
     this.name = name;
     this.createDate = createDate;
+    this.height = height;
+    this.width = width;
+    this.focalLength = focalLength;
+    this.fNumber = fNumber;
+    this.iso = iso;
+  }
+
+  public Photo(String name,Integer height, Integer width, Integer focalLength, String fNumber, Integer iso) {
+    this.url = this.url + name;
+    this.name = name;
     this.height = height;
     this.width = width;
     this.focalLength = focalLength;

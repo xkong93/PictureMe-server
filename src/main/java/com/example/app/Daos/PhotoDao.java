@@ -143,21 +143,49 @@ public class PhotoDao {
 
   }
 
-  public void printData(Photo photo) {
-    System.out.println();
+  public boolean updatePhotoName(String newName, String oldName) {//same name
+    Connection conn = null;
+    PreparedStatement ps = null;
+    String sql = "update photo set ";
+    StringBuilder sb = new StringBuilder(sql);
+    sb.append("name=?");
+    sb.append("where name=?");
+    try {
+      conn = JDBCUtils.getInstance().getConnection();
+      ps = conn.prepareStatement(sb.toString());
+      ps.setString(1, newName);
+      ps.setString(2, oldName);
+      Integer res = ps.executeUpdate();
+      if (res == 0) {
+        System.out.println("Photo: " + oldName + " not exists");
+        return false;
+      }
+    } catch (SQLException se) {
+      System.out.println(se.getMessage());
+      return false;
+    } finally {
+      JDBCUtils.getInstance().closeConnection(conn, ps, null);
+    }
+
+    return true;
+
   }
 
 
   public static void main(String[] args) {
     PhotoDao photoDao = new PhotoDao();
-    Photo photo = new Photo();
-    photo.setName("IMG_012.jpg");
-    photo.setHeight(800);
-    photo.setWidth(600);
-    photo.setFocalLength(35);
-    photo.setfNumber("f/2.5");
-    photo.setIso(6400);
-    photoDao.createPhoto(photo);
+//    Photo photo = new Photo();
+//    photo.setName("IMG_212.jpg");
+//    photo.setHeight(800);
+//    photo.setWidth(600);
+//    photo.setFocalLength(35);
+//    photo.setfNumber("f/2.5");
+//    photo.setIso(6400);
+//    photoDao.createPhoto(photo);
+    List<Photo> photoList = photoDao.findAllPhotos();
+    for (Photo p : photoList) {
+      System.out.println(p.getName());
+    }
   }
 
 

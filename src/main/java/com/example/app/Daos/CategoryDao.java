@@ -242,7 +242,9 @@ public class CategoryDao {
         ps.executeUpdate();
 
     }catch (SQLException se) {
-      System.out.println(se.getMessage());
+      if (se.getMessage().contains("empty")) {
+        System.out.println("Either photo or category is not found in DBS");
+      }
       return false;
     } finally {
       JDBCUtils.getInstance().closeConnection(conn, ps, rs1);
@@ -271,12 +273,12 @@ public class CategoryDao {
 //    System.out.println(c.getName());
 //    System.out.println(c.getCreateDate());
 //    System.out.println(category.getCreateDate());
-//    List<Photo> photoList;
-//    photoList = categoryDao.findAllPhotosFromCategoryByName("4444");
+    List<Photo> photoList;
+    photoList = categoryDao.findAllPhotosFromCategoryByName("4444");
 //    for (Photo p : photoList) {
 //      System.out.println(p.getName() + p.getCreateDate());
 //    }
-    categoryDao.addPhotoToCategory("IMG_002.jpg","study");
+//    categoryDao.addPhotoToCategory("dsd.jpg","travel");
 //    categoryDao.updateCategory("travel", "school");
 //
 //    Category c = categoryDao.findCategoryByName("dsd");

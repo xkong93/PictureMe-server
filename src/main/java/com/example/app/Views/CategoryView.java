@@ -17,13 +17,13 @@ public class CategoryView {
   PhotoView photoView;
 
   private String categoryPageOptions = "Please choose from the following options:\n" +
-    "1. Display all categories\n" + //done
-    "2. Display photos from a category\n" + // done
-    "3. Create a category\n" + //done
-    "4. Delete a category\n" +
-    "5. Update a category's name\n" +
-    "6. Add a photo to a category\n" +
-    "7. Go back to main page";
+          "1. Display all categories\n" + //done
+          "2. Display photos from a category\n" + // done
+          "3. Create a category\n" + //done
+          "4. Delete a category\n" +
+          "5. Update a category's name\n" +
+          "6. Add a photo to a category\n" +
+          "7. Go back to main page";
 
 
   public CategoryView() {
@@ -77,6 +77,7 @@ public class CategoryView {
     Category category = new Category(cname);
     isSuccess = categoryDao.createCategory(category);
     if (isSuccess) {
+
       System.out.println("New category:" + cname + "created!");
     }
     while (!isSuccess) {
@@ -224,6 +225,7 @@ public class CategoryView {
           System.out.println(categoryPageOptions);
           break;
         case "7":
+          System.out.println("Left category mode.");
           return;
         default:
           System.out.println("invalid input, please try it again!");

@@ -9,16 +9,15 @@ import java.util.Scanner;
 public class Main {
 
   public static String mainPageOptions = "Please choose from the following options:\n" +
-    "1. Display all photos\n" +
-    "2. Go to category mode\n" +
-    "3. Go to tag mode\n" +
-    "4. Delete existing photos\n" +
-    "5. Create a photo\n" +
-    "6. Update a photo info\n" +
-    "7. Quit";
+          "1. Display all photos\n" +
+          "2. Go to category mode\n" +
+          "3. Go to tag mode\n" +
+          "4. Delete a existing photo\n" +
+          "5. Create a photo\n" +
+          "6. Update a photo'name\n" +
+          "7. Quit";
 
   public static void main(String[] args) {
-
 
     CategoryView categoryView = new CategoryView();
     PhotoView photoView = new PhotoView();
@@ -36,32 +35,32 @@ public class Main {
           break;
         case "2":
           categoryView.goToCategoryMode();
+          System.out.println(mainPageOptions);
           break;
         case "3":
+
           break;
         case "4":
+          photoView.deletePhotoView();
           System.out.println(mainPageOptions);
           break;
         case "5":
-
+          photoView.createPhotoView();
           System.out.println(mainPageOptions);
           break;
         case "6":
+          photoView.updatePhotoView();
           System.out.println(mainPageOptions);
           break;
         case "7":
-          System.out.println(mainPageOptions);
-
           return;
         default:
-          System.out.println("invalid input, please try it again!");
+          System.out.println("invalid input, please try it again!!!!");
       }
     }
   }
 
 
-  public static void mainOptions() {
 
-  }
 
 }
