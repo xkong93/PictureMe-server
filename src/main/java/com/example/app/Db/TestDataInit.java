@@ -59,6 +59,8 @@ public class TestDataInit {
     tagDao.createTag(new Tag("B"));
     tagDao.createTag(new Tag("C"));
     tagDao.createTag(new Tag("D"));
+            System.out.println("sample tag data imported!");
+
   }
 
   public void insertPhotoTagTestData() {
@@ -68,6 +70,8 @@ public class TestDataInit {
     tagDao.addPhotoToTag("IMG_004.jpg", "D");
     tagDao.addPhotoToTag("IMG_005.jpg", "A");
     tagDao.addPhotoToTag("IMG_006.jpg", "A");
+            System.out.println("sample photos_tag data imported!");
+
   }
 
 
