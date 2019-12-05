@@ -9,13 +9,15 @@ import java.util.Date;
 public class Tag {
 
   private Integer tid;
-  private Date createDate;
+  private String createDate;
   private String name;
 
   public Tag() {
 
   }
-
+  public Tag(String name) {
+    this.name = name;
+  }
   public Integer getTid() {
     return tid;
   }
@@ -24,11 +26,11 @@ public class Tag {
     this.tid = tid;
   }
 
-  public Date getCreateDate() {
+  public String getCreateDate() {
     return createDate;
   }
 
-  public void setCreateDate(Date createDate) {
+  public void setCreateDate(String createDate) {
     this.createDate = createDate;
   }
 

@@ -38,7 +38,8 @@ public class Main {
           System.out.println(mainPageOptions);
           break;
         case "3":
-
+          tagView.goToTagMode();
+          System.out.println(mainPageOptions);
           break;
         case "4":
           photoView.deletePhotoView();
@@ -55,12 +56,10 @@ public class Main {
         case "7":
           return;
         default:
-          System.out.println("invalid input, please try it again!!!!");
+          System.out.println("invalid input, please try it again!");
       }
     }
   }
-
-
 
 
 }
