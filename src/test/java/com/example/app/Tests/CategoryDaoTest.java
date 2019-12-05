@@ -7,6 +7,7 @@ import com.example.app.Models.Photo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,24 +67,67 @@ class CategoryDaoTest {
     expectedPhotoList.add("IMG_003.jpg");
     expectedPhotoList.add("IMG_004.jpg");
     for (int i = 0; i < photoList.size(); i++) {
-      assertEquals(expectedPhotoList.get(i),photoList.get(i).getName());
+      assertEquals(expectedPhotoList.get(i), photoList.get(i).getName());
     }
   }
 
   @Test
   void findCategoryByName() {
+    Category category = categoryDao.findCategoryByName("study");
+    Category expectedCategory = new Category("study");
+    expectedCategory.setCreateDate(new java.sql.Date(new Date().getTime()).toString());
+    assertEquals(expectedCategory.getName(), category.getName());
+    assertEquals(expectedCategory.getCreateDate(), category.getCreateDate());
 
   }
 
   @Test
   void updateCategory() {
+    categoryDao.updateCategory("notstudy", "study");
+    Category c = categoryDao.findCategoryByName("notstudy");
+    assertEquals("notstudy", c.getName());
+    assertEquals(new java.sql.Date(new Date().getTime()).toString(), c.getCreateDate());
+
+    //rollback the data
+    categoryDao.updateCategory("study", "notstudy");
+
   }
 
   @Test
   void deleteCategory() {
+
+    //create a new category called newCate
+    categoryDao.createCategory(new Category("newCate"));
+
+    //then delete newCate
+    categoryDao.deleteCategory("newCate");
+
+    //find whether newCate exists in the list of all categories
+    boolean isExist = false;
+
+    List<Category> categoryList = categoryDao.findAllCategories();
+    for (Category c : categoryList) {
+      if (c.getName().equals("newCate")) {
+        isExist = true;
+      }
+    }
+    assertEquals(false, isExist);
   }
 
   @Test
   void addPhotoToCategory() {
+
+    categoryDao.addPhotoToCategory("IMG_007.jpg", "life");
+    List<Photo> photoList = categoryDao.findAllPhotosFromCategoryByName("life");
+
+    boolean isExist = false;
+
+    for (Photo p : photoList) {
+      if (p.getName().equals("IMG_007.jpg")) {
+        isExist = true;
+      }
+    }
+    assertEquals(true, isExist);
+
   }
 }

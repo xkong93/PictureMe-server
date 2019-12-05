@@ -134,23 +134,16 @@ public class PhotoDao {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    Photo photo = new Photo();
 
     String sql = "delete from photo where name=?";
     try {
       conn = JDBCUtils.getInstance().getConnection();
       ps = conn.prepareStatement(sql);
       ps.setString(1, name);
-      ps.executeUpdate();
-
-      while (rs.next()) {
-        photo.setPid(rs.getInt("id"));
-        photo.setName(rs.getString("name"));
-        photo.setCreateDate(rs.getDate("create_date").toString());
-        photo.setHeight(rs.getInt("height"));
-        photo.setHeight(rs.getInt("width"));
-        photo.setFocalLength(rs.getInt("focal_length"));
-        photo.setfNumber(rs.getString("f_number"));
+      Integer res = ps.executeUpdate();
+       if (res == 0) {
+        System.out.println("Photo: " + name + " not exists");
+        return false;
       }
     } catch (SQLException se) {
       System.out.println(se.getMessage());
