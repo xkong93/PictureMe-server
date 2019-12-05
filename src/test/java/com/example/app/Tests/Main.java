@@ -12,11 +12,11 @@ import java.util.Date;
  * @Date 2019-12-04.
  */
 public class Main {
+  @Test
   public static void main(String[] args) {
-//    CategoryDaoTest categoryDaoTest = new CategoryDaoTest();
-//    PhotoDaoTest photoDaoTest = new PhotoDaoTest();
-//    TagDaoTest tagDaoTest = new TagDaoTest();
+    CategoryDaoTest categoryDaoTest = new CategoryDaoTest();
+    PhotoDaoTest photoDaoTest = new PhotoDaoTest();
+    TagDaoTest tagDaoTest = new TagDaoTest();
 
-    System.out.println(new Date().getTime());
   }
 }
