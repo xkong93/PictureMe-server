@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 /**
- * @author Xuan Kong
+ * @author Xuan Kong, Yuting Chen
  * @Date 2019-11-26.
  */
 public class StoredProceduresInit {
@@ -19,7 +19,9 @@ public class StoredProceduresInit {
     initCreateTag();
     initGetTagByName();
   }
-
+  /**
+   * Drop all the stored procedures.
+   */
   public void dropAllStoredProcedures() {
     conn = null;
     PreparedStatement ps = null;

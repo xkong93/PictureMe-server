@@ -12,12 +12,17 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Xuan Kong
+ * @author Xuan Kong, Yuting Chen
  * @Date 2019-11-18.
  */
 public class PhotoDao {
 
 
+    /**
+   * Created a photo.
+   * @param photo
+   * @return true if the photo is successfully created.
+   */
   public boolean createPhoto(Photo photo) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -47,6 +52,11 @@ public class PhotoDao {
     return true;
   }
 
+    /**
+   * Find the photo with a photo name.
+   * @param name
+   * @return the photo if found
+   */
   public Photo findPhotoByName(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -77,7 +87,10 @@ public class PhotoDao {
     return photo;
   }
 
-
+  /**
+   * Find all photos stored in database.
+   * @return a list of photos
+   */
   public List<Photo> findAllPhotos() {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -111,6 +124,12 @@ public class PhotoDao {
     return photoList;
   }
 
+    /**
+   * Delete a photo.
+   * @param name
+   * @return true if the photo is successfully deleted,
+   * false if the photo is not found.
+   */
   public boolean deletePhoto(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -143,6 +162,13 @@ public class PhotoDao {
 
   }
 
+    /**
+   * Update the name of a photo.
+   * @param newName
+   * @param oldName
+   * @return true if the photo is successfully updated,
+   * false if the photo is not found.
+   */
   public boolean updatePhotoName(String newName, String oldName) {//same name
     Connection conn = null;
     PreparedStatement ps = null;

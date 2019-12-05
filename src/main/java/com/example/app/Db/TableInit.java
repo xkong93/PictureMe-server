@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 /**
- * @author Xuan Kong
- * @Date 2019-11-14.
+ * @author Xuan Kong, Yuting Chen
+ * @Date 2019-11-26.
  */
 public class TableInit {
 

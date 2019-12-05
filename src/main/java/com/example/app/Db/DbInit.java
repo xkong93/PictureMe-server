@@ -6,6 +6,7 @@ package com.example.app.Db;
  */
 public class DbInit {
   public static void main(String[] args) {
+    
     TableInit tableInit = new TableInit();
     TriggerInit triggerInit = new TriggerInit();
     StoredProceduresInit storedProceduresInit = new StoredProceduresInit();

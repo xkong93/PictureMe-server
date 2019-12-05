@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
-
+/**
+ * @author Xuan Kong, Yuting Chen
+ * @Date 2019-11-26.
+ */
 public class JDBCUtils {
     // mysql params
     private static String jdbcDriver = null;

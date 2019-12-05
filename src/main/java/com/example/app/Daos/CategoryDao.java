@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Xuan Kong
+ * @author Xuan Kong, Yuting Chen
  * @Date 2019-11-17.
  */
 public class CategoryDao {
@@ -37,6 +37,12 @@ public class CategoryDao {
 //
 //  }
 
+   /**
+   * Create a category.
+   * @param category
+   * @return true if the category is successfully created
+   *
+   */
   public boolean createCategory(Category category) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -58,6 +64,10 @@ public class CategoryDao {
 
   }
 
+  /**
+   * Find all categories.
+   * @return a list of categories
+   */
   public List<Category> findAllCategories() {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -85,6 +95,12 @@ public class CategoryDao {
     return categoryList;
   }
 
+
+  /**
+   * Find the photos with the name entered.
+   * @param name
+   * @return a list of photos with the entered name.
+   */
   public List<Photo> findAllPhotosFromCategoryByName(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -131,6 +147,12 @@ public class CategoryDao {
 
   }
 
+
+  /**
+   * Find the category with the name entered.
+   * @param name the category we are looking for
+   * @return the category if found
+   */
   public Category findCategoryByName(String name) {
     String newName = name.toLowerCase();
     Connection conn = null;
@@ -158,6 +180,14 @@ public class CategoryDao {
 
   }
 
+
+  /**
+   * Update the category name with the new name entered.
+   * @param newName new name after updated
+   * @param oldName old name before updated
+   * @return true if the category is successfully updated
+   * false if the old category name does not exist
+   */
   public boolean updateCategory(String newName, String oldName) {//same name
     Connection conn = null;
     PreparedStatement ps = null;
@@ -186,6 +216,13 @@ public class CategoryDao {
 
   }
 
+
+  /**
+   * Enter a name and delete the category of the name.
+   *
+   * @param name category name that should be deleted
+   * Return true if the category is successfully deleted, false if the category does not exist.
+   */
   public boolean deleteCategory(String name) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -209,6 +246,14 @@ public class CategoryDao {
     return true;
   }
 
+
+    /**
+   * Add a photo to a category.
+   * @param pName photo name
+   * @param cName category name
+   * @return true if the photo is successfully added to the category,
+   * false if either photo or category is not found in data base.
+   */
   public boolean addPhotoToCategory(String pName, String cName) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -219,29 +264,29 @@ public class CategoryDao {
     String sql3 = "insert into photo_category (pid,cid) values (?,?)";
     try {
 
-        //get photo id
-        conn = JDBCUtils.getInstance().getConnection();
-        ps = conn.prepareStatement(sql1);
-        ps.setString(1,pName);
-        rs1 = ps.executeQuery();
-        rs1.next();//move cursor
-        Integer pid = rs1.getInt(1);
+      //get photo id
+      conn = JDBCUtils.getInstance().getConnection();
+      ps = conn.prepareStatement(sql1);
+      ps.setString(1, pName);
+      rs1 = ps.executeQuery();
+      rs1.next();//move cursor
+      Integer pid = rs1.getInt(1);
 
 
-        //get Category id
-        ps = conn.prepareStatement(sql2);
-        ps.setString(1,cName);
-        rs2 = ps.executeQuery();
-        rs2.next();
-        Integer cid = rs2.getInt("id");
+      //get Category id
+      ps = conn.prepareStatement(sql2);
+      ps.setString(1, cName);
+      rs2 = ps.executeQuery();
+      rs2.next();
+      Integer cid = rs2.getInt("id");
 
-        //insert pid cid into photo_cate table
-        ps = conn.prepareStatement(sql3);
-        ps.setInt(1,pid);
-        ps.setInt(2,cid);
-        ps.executeUpdate();
+      //insert pid cid into photo_cate table
+      ps = conn.prepareStatement(sql3);
+      ps.setInt(1, pid);
+      ps.setInt(2, cid);
+      ps.executeUpdate();
 
-    }catch (SQLException se) {
+    } catch (SQLException se) {
       if (se.getMessage().contains("empty")) {
         System.out.println("Either photo or category is not found in DBS");
       }

@@ -8,7 +8,7 @@ import com.example.app.Models.Photo;
 import com.example.app.Models.Tag;
 
 /**
- * @author Xuan Kong
+ * @author Xuan Kong, Yuting Chen
  * @Date 2019-11-26.
  */
 public class TestDataInit {

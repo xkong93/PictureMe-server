@@ -3,8 +3,8 @@ package com.example.app.Views;
 import java.util.Scanner;
 
 /**
- * @author Xuan Kong
- * @Date 2019-12-03.
+ * @author Xuan Kong, Yuting Chen
+ * @Date 2019-11-26.
  */
 public class Main {
 
