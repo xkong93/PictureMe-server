@@ -174,14 +174,14 @@ public class PhotoView {
   }
 
 
-  public static void main(String[] args) {
-//    PhotoDao photoDao = new PhotoDao();
-//    Photo photo = new Photo();
-//    photo.setName("IMG_012.jpg");
-//    photo.setHeight(800);
-//    photo.setWidth(600);
-//    photo.setFocalLength(35);
-//    photo.setfNumber("f/2.5");
-//    photo.setIso(6400);
-  }
+//  public static void main(String[] args) {
+////    PhotoDao photoDao = new PhotoDao();
+////    Photo photo = new Photo();
+////    photo.setName("IMG_012.jpg");
+////    photo.setHeight(800);
+////    photo.setWidth(600);
+////    photo.setFocalLength(35);
+////    photo.setfNumber("f/2.5");
+////    photo.setIso(6400);
+//  }
 }

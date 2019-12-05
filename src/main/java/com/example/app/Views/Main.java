@@ -1,5 +1,6 @@
 package com.example.app.Views;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -54,6 +55,7 @@ public class Main {
           System.out.println(mainPageOptions);
           break;
         case "7":
+          System.out.println("See you later!");
           return;
         default:
           System.out.println("invalid input, please try it again!");
